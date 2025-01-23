@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const blogSchema = new mongoose.Schema(
   {
     title: {
-      type: String,
+      type: String, 
       require: [true, "title is required"],
     },
     description: {
