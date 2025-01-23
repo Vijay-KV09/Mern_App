@@ -32,30 +32,36 @@ exports.getAllBlogsController = async (req, res) => {
 exports.createBlogController = async (req, res) => {
   try {
     const { title, description, image, user } = req.body;
-    //validation
+
+    // Validation
     if (!title || !description || !image || !user) {
       return res.status(400).send({
         success: false,
-        message: "Please Provide ALl Fields",
-      });
-    }
-    const exisitingUser = await userModel.findById(user);
-    //validaton
-    if (!exisitingUser) {
-      return res.status(404).send({
-        success: false,
-        message: "unable to find user",
+        message: "Please Provide All Fields",
       });
     }
 
-    const newBlog = new blogModel({ title, description, image, user });
-    const session = await mongoose.startSession();
-    session.startTransaction();
-    await newBlog.save({ session });
-    exisitingUser.blogs.push(newBlog);
-    await exisitingUser.save({ session });
-    await session.commitTransaction();
-    await newBlog.save();
+    // Check if the user exists
+    const existingUser = await userModel.findById(user);
+    if (!existingUser) {
+      return res.status(404).send({
+        success: false,
+        message: "Unable to find user",
+      });
+    }
+
+    // Create new blog entry
+    const newBlog = await blogModel.create({
+      title,
+      description,
+      image,
+      user,
+    });
+
+    // Add the new blog to the user's blog list
+    existingUser.blogs.push(newBlog._id);
+    await existingUser.save();
+
     return res.status(201).send({
       success: true,
       message: "Blog Created!",
@@ -65,11 +71,12 @@ exports.createBlogController = async (req, res) => {
     console.log(error);
     return res.status(400).send({
       success: false,
-      message: "Error WHile Creting blog",
+      message: "Error While Creating Blog",
       error,
     });
   }
 };
+
 
 //Update Blog
 exports.updateBlogController = async (req, res) => {
