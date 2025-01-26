@@ -36,7 +36,7 @@ const UserBlogs = () => {
           />
         ))
       ) : (
-        <h1>You Havent Created a blog</h1>
+        <h1 style={{color: "#74D4FF"}}>You Havent Created a blog</h1>
       )}
     </div>
   );

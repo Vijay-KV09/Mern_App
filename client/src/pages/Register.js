@@ -6,14 +6,14 @@ import axios from "axios";
 
 const Register = () => {
   const navigate = useNavigate();
-  //state
+  // State for form inputs
   const [inputs, setInputs] = useState({
     name: "",
     email: "",
     password: "",
   });
 
-  //handle input change
+  // Handle input change
   const handleChange = (e) => {
     setInputs((prevState) => ({
       ...prevState,
@@ -21,7 +21,7 @@ const Register = () => {
     }));
   };
 
-  //form handle
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -31,97 +31,129 @@ const Register = () => {
         password: inputs.password,
       });
       if (data.success) {
-        toast.success("User Register Successfully");
+        toast.success("User Registered Successfully");
         navigate("/login");
       }
     } catch (error) {
       console.log(error);
     }
   };
+
   return (
-    <>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        minHeight: "100vh",
+        background: "linear-gradient(to right, #6a11cb, #2575fc)",
+      }}
+    >
       <form onSubmit={handleSubmit}>
         <Box
           maxWidth={450}
+          width="100%"
           display="flex"
           flexDirection={"column"}
           alignItems="center"
           justifyContent={"center"}
-          margin="auto"
-          marginTop={5}
-          boxShadow="10px 10px 20px #ccc"
-          padding={3}
-          borderRadius={5}
+          padding={4}
+          boxShadow="0 10px 20px rgba(0,0,0,0.2)"
+          borderRadius={1}
+          bgcolor="white"
         >
           <Typography
             variant="h4"
-            sx={{ textTransform: "uppercase" }}
-            padding={1}
-            textAlign="center"
+            sx={{
+              textTransform: "uppercase",
+              fontWeight: "bold",
+              mb: 2,
+              textAlign: "center",
+            }}
           >
             Register Form
           </Typography>
 
           <Typography
-                      variant="h5"
-                      sx={{ textTransform: "uppercase" }}
-                      textAlign="center"
-                      style={{
-                        border: "1px solid black",
-                        borderRadius: "10px",
-                        color: "white",
-                        background: "darkblue",
-                        padding: "3px 10px"
-                      }}
-                    >
-                      Register
+            variant="h5"
+            sx={{
+              textTransform: "uppercase",
+              textAlign: "center",
+              border: "1px solid black",
+              borderRadius: "10px",
+              color: "white",
+              background: "darkblue",
+              padding: "5px 15px",
+              marginBottom: 3,
+            }}
+          >
+            Register
           </Typography>
-          
+
           <TextField
-            placeholder="name"
+            placeholder="Name"
             value={inputs.name}
             onChange={handleChange}
             name="name"
             margin="normal"
             type={"text"}
             required
+            fullWidth
           />
           <TextField
-            placeholder="email"
+            placeholder="Email"
             value={inputs.email}
+            onChange={handleChange}
             name="email"
             margin="normal"
             type={"email"}
             required
-            onChange={handleChange}
+            fullWidth
           />
           <TextField
-            placeholder="password"
+            placeholder="Password"
             value={inputs.password}
+            onChange={handleChange}
             name="password"
             margin="normal"
             type={"password"}
             required
-            onChange={handleChange}
+            fullWidth
           />
 
           <Button
             type="submit"
-            sx={{ borderRadius: 3, marginTop: 3 }}
+            sx={{
+              borderRadius: 3,
+              marginTop: 3,
+              background: "linear-gradient(to right, #6a11cb, #2575fc)",
+              color: "white",
+              fontWeight: "bold",
+              padding: "10px 20px",
+              "&:hover": {
+                background: "linear-gradient(to right, #2575fc, #6a11cb)",
+              },
+            }}
             variant="contained"
-            color="primary"
           >
             Submit
           </Button>
+
           <Button
             onClick={() => navigate("/login")}
-            sx={{ borderRadius: 3, marginTop: 3 }}
+            sx={{
+              borderRadius: 3,
+              marginTop: 2,
+              color: "#6a11cb",
+              fontWeight: "bold",
+              "&:hover": { color: "#2575fc" },
+            }}
           >
-            Already Registerd ? Please Login
+            Already Registered? Please Login
           </Button>
         </Box>
       </form>
-    </>
+    </div>
   );
 };
 

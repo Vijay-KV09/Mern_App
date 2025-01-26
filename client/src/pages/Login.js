@@ -9,13 +9,11 @@ import toast from "react-hot-toast";
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  //state
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
   });
 
-  //handle input change
   const handleChange = (e) => {
     setInputs((prevState) => ({
       ...prevState,
@@ -23,7 +21,6 @@ const Login = () => {
     }));
   };
 
-  //form handle
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -41,87 +38,90 @@ const Login = () => {
       console.log(error);
     }
   };
+
   return (
-    <>
-      <div style={{
-        width: "100vw",
-        height: "80vh",
-        marginTop: "40px",
-      }}>
-        <form onSubmit={handleSubmit} >
-        <Box
-          maxWidth={450}
-          display="flex"
-          flexDirection={"column"}
-          alignItems="center"
-          justifyContent={"center"}
-          margin="auto"
-          marginTop={2}
-          boxShadow="10px 10px 20px #ccc"
-          padding={3}
-          borderRadius={5}
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        minHeight: "100vh",
+        background: "linear-gradient(to right, #6a11cb, #2575fc)",
+      }}
+    >
+      <Box
+        maxWidth={400}
+        width="100%"
+        padding={4}
+        boxShadow="0 10px 20px rgba(0,0,0,0.2)"
+        borderRadius={1}
+        bgcolor="white"
+        textAlign="center"
+      >
+        <Typography
+          variant="h4"
+          sx={{ textTransform: "uppercase", mb: 2, fontWeight: "bold" }}
         >
-          <Typography
-            variant="h4"
-            sx={{ textTransform: "uppercase" }}
-            padding={3}
-            textAlign="center"
-          >
-            Login Form
-          </Typography>
+          Login
+        </Typography>
 
-          <Typography
-            variant="h5"
-            sx={{ textTransform: "uppercase" }}
-            textAlign="center"
-            style={{
-              border: "1px solid black",
-              borderRadius: "10px",
-              color: "white",
-              background: "darkblue",
-              padding: "5px 10px"
-            }}
-          >
-            Login
-          </Typography>
-
+        <form onSubmit={handleSubmit}>
           <TextField
-            placeholder="email"
+            fullWidth
+            placeholder="Type your username"
             value={inputs.email}
             name="email"
             margin="normal"
-            type={"email"}
+            type="email"
             required
             onChange={handleChange}
           />
           <TextField
-            placeholder="password"
+            fullWidth
+            placeholder="Type your password"
             value={inputs.password}
             name="password"
             margin="normal"
-            type={"password"}
+            type="password"
             required
             onChange={handleChange}
           />
 
+          <Typography
+            variant="body2"
+            sx={{ textAlign: "right", mt: 1, mb: 3, cursor: "pointer", color: "#6a11cb" }}
+            onClick={() => navigate("/forgot-password")}
+          >
+            Forgot Password?
+          </Typography>
+
           <Button
             type="submit"
-            sx={{ borderRadius: 3, marginTop: 3 }}
             variant="contained"
-            color="primary"
+            fullWidth
+            sx={{
+              background: "linear-gradient(to right, #6a11cb, #2575fc)",
+              color: "white",
+              fontWeight: "bold",
+              padding: "10px 20px",
+              borderRadius: 3,
+              mb: 2,
+            }}
           >
-            Submit
+            Login
           </Button>
-          <Button
+
+          <Typography
+            variant="body2"
+            color="gray"
             onClick={() => navigate("/register")}
-            sx={{ borderRadius: 3, marginTop: 3 }}
+            sx={{ cursor: "pointer", "&:hover": { color: "#6a11cb" } }}
           >
-            Not a user ? Please Register
-          </Button>
-        </Box>
-      </form>
-      </div>
-    </>
+            Or Sign Up Using
+          </Typography>
+        </form>
+      </Box>
+    </div>
   );
 };
 

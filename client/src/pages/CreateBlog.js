@@ -39,7 +39,11 @@ const CreateBlog = () => {
   };
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}
+        style={{
+          marginTop: "40px",
+          height: "85vh",
+      }}>
         <Box
           width={"50%"}
           padding={1}
@@ -47,14 +51,14 @@ const CreateBlog = () => {
           display="flex"
           flexDirection={"column"}
           marginTop="10px"
-          boxShadow="0px 0px 50px violet"
+          boxShadow="5px 5px 5px white"
         >
           <Typography
             variant="h2"
             textAlign={"center"}
             fontWeight="bold"
             padding={1}
-            color="gray"
+            color="#74D4FF"
           >
             Create A Blog
           </Typography>
@@ -62,6 +66,7 @@ const CreateBlog = () => {
             sx={{
               fontSize: "24px",
               fontWeight: "bold",
+              color:"red"
             }}
           >
             Title
@@ -69,14 +74,14 @@ const CreateBlog = () => {
           <TextField
             name="title"
             value={inputs.title}
-            
+            placeholder="title..."
             onChange={handleChange}
             margin="normal"
             variant="outlined"
             required
           />
           <InputLabel
-            sx={{fontSize: "24px", fontWeight: "bold" }}
+            sx={{fontSize: "24px", fontWeight: "bold" ,color:"red"}}
           >
             Description
           </InputLabel>
@@ -86,10 +91,14 @@ const CreateBlog = () => {
             onChange={handleChange}
             margin="normal"
             variant="outlined"
+            placeholder="hell boy is dead..."
             required
           />
           <InputLabel
-            sx={{ mb: 1, mt: 2, fontSize: "24px", fontWeight: "bold" }}
+            sx={{
+              mb: 1, mt: 2, fontSize: "24px", fontWeight: "bold",
+              color:"red"
+             }}
           >
             Image URL
           </InputLabel>

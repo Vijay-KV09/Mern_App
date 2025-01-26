@@ -10,6 +10,7 @@ import { Toaster } from "react-hot-toast";
 function App() {
   return (
     <>
+      <div style={{ backgroundColor:"#1D202A"}}>
       <Header />
       <Toaster />
       <Routes>
@@ -21,6 +22,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
+      </div>
     </>
   );
 }

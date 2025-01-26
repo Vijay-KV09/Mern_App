@@ -28,7 +28,7 @@ const BlogDetails = () => {
 
   useEffect(() => {
     getBlogDetail();
-  });
+  },[id]);
 
   // input change
   const handleChange = (e) => {
@@ -58,7 +58,7 @@ const BlogDetails = () => {
   console.log(blog);
   return (
     <v>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} style={{height:"90vh"}}>
         <Box
           width={"50%"}
           padding={2}
@@ -73,25 +73,36 @@ const BlogDetails = () => {
             textAlign={"center"}
             fontWeight="bold"
             padding={3}
-            color="gray"
+            color="#74D4FF"
           >
             Update A Pots
           </Typography>
           <InputLabel
-            sx={{fontSize: "24px", fontWeight: "bold" }}
+            sx={{
+              fontSize: "24px", fontWeight: "bold",
+              color:"red"
+             }}
           >
             Title
           </InputLabel>
           <TextField
-            name="title"
+            name="title"  
             value={inputs.title}
             onChange={handleChange}
             margin="normal"
             variant="outlined"
+            InputProps={{
+              style:{
+                 color: "white"
+              }
+            }}
             required
           />
           <InputLabel
-            sx={{fontSize: "24px", fontWeight: "bold" }}
+            sx={{
+              fontSize: "24px", fontWeight: "bold",
+              color:"red"
+             }}
           >
             Description
           </InputLabel>
@@ -101,10 +112,18 @@ const BlogDetails = () => {
             onChange={handleChange}
             margin="normal"
             variant="outlined"
+            InputProps={{
+              style:{
+                 color: "white"
+              }
+            }}
             required
           />
           <InputLabel
-            sx={{fontSize: "24px", fontWeight: "bold" }}
+            sx={{
+              fontSize: "24px", fontWeight: "bold",
+              color:"red"
+             }}
           >
             Image URL
           </InputLabel>
@@ -114,6 +133,11 @@ const BlogDetails = () => {
             onChange={handleChange}
             margin="normal"
             variant="outlined"
+            InputProps={{
+              style:{
+                 color: "white"
+              }
+            }}
             required
           />
           <Button type="submit" color="warning" variant="contained">
