@@ -1,17 +1,15 @@
 const userModel = require("../models/userModel");
 const bcrypt = require("bcryptjs");
-//create user register user
+
 exports.registerController = async (req, res) => {
   try {
     const { username, email, password } = req.body;
-    //validation
     if (!username || !email || !password) {
       return res.status(400).send({
         success: false,
         message: "Please Fill all fields",
       });
     }
-    //exisiting user
     const exisitingUser = await userModel.findOne({ email });
     if (exisitingUser) {
       return res.status(401).send({
@@ -21,7 +19,6 @@ exports.registerController = async (req, res) => {
     }
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    //save new user
     const user = new userModel({ username, email, password: hashedPassword });
     await user.save();
     return res.status(201).send({
@@ -39,7 +36,6 @@ exports.registerController = async (req, res) => {
   }
 };
 
-// get all users
 exports.getAllUsers = async (req, res) => {
   try {
     const users = await userModel.find({});
@@ -59,11 +55,9 @@ exports.getAllUsers = async (req, res) => {
   }
 };
 
-//login
 exports.loginController = async (req, res) => {
   try {
     const { email, password } = req.body;
-    //validation
     if (!email || !password) {
       return res.status(401).send({
         success: false,
@@ -77,7 +71,6 @@ exports.loginController = async (req, res) => {
         message: "email is not registerd",
       });
     }
-    //password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(401).send({

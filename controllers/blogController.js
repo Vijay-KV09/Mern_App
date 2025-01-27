@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const blogModel = require("../models/blogModel");
 const userModel = require("../models/userModel");
 
-//GET ALL BLOGS
 exports.getAllBlogsController = async (req, res) => {
   try {
     const blogs = await blogModel.find({}).populate("user");
@@ -28,7 +27,6 @@ exports.getAllBlogsController = async (req, res) => {
   }
 };
 
-//Create Blog
 exports.createBlogController = async (req, res) => {
   try {
     const { title, description, image, user } = req.body;
@@ -41,7 +39,6 @@ exports.createBlogController = async (req, res) => {
       });
     }
 
-    // Check if the user exists
     const existingUser = await userModel.findById(user);
     if (!existingUser) {
       return res.status(404).send({
@@ -50,7 +47,6 @@ exports.createBlogController = async (req, res) => {
       });
     }
 
-    // Create new blog entry
     const newBlog = await blogModel.create({
       title,
       description,
@@ -58,7 +54,6 @@ exports.createBlogController = async (req, res) => {
       user,
     });
 
-    // Add the new blog to the user's blog list
     existingUser.blogs.push(newBlog._id);
     await existingUser.save();
 
@@ -78,7 +73,6 @@ exports.createBlogController = async (req, res) => {
 };
 
 
-//Update Blog
 exports.updateBlogController = async (req, res) => {
   try {
     const { id } = req.params;
@@ -103,7 +97,6 @@ exports.updateBlogController = async (req, res) => {
   }
 };
 
-//SIngle Blog
 exports.getBlogByIdController = async (req, res) => {
   try {
     const { id } = req.params;
@@ -129,7 +122,6 @@ exports.getBlogByIdController = async (req, res) => {
   }
 };
 
-//Delete Blog
 exports.deleteBlogController = async (req, res) => {
   try {
     const blog = await blogModel
@@ -152,7 +144,6 @@ exports.deleteBlogController = async (req, res) => {
   }
 };
 
-//GET USER BLOG
 exports.userBlogControlller = async (req, res) => {
   try {
     const userBlog = await userModel.findById(req.params.id).populate("blogs");

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Box, Button, InputLabel, TextField, Typography } from "@mui/material";
+import { Box, Button, InputLabel, styled, TextField, Typography } from "@mui/material";
 import toast from "react-hot-toast";
 
 const CreateBlog = () => {
@@ -35,6 +35,7 @@ const CreateBlog = () => {
       }
     } catch (error) {
       console.log(error);
+      toast.error("An error occurred while creating the blog.");
     }
   };
   return (
@@ -76,6 +77,11 @@ const CreateBlog = () => {
             value={inputs.title}
             placeholder="title..."
             onChange={handleChange}
+            InputProps={{
+              style: {
+                  color: 'white',
+                },
+              }}
             margin="normal"
             variant="outlined"
             required
@@ -89,6 +95,11 @@ const CreateBlog = () => {
             name="description"
             value={inputs.description}
             onChange={handleChange}
+            InputProps={{
+              style: {
+                  color: 'white',
+                },
+              }}
             margin="normal"
             variant="outlined"
             placeholder="hell boy is dead..."
@@ -106,6 +117,11 @@ const CreateBlog = () => {
             name="image"
             value={inputs.image}
             onChange={handleChange}
+            InputProps={{
+              style: {
+                  color: 'white',
+                },
+              }}
             margin="normal"
             variant="outlined"
             required
